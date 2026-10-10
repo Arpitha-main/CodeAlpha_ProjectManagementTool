@@ -1,12 +1,4 @@
-# TaskFlow – Project Management Application
-
-## About the Project
-
-TaskFlow is a web-based project management application designed to make organizing projects and managing tasks easier. It provides a centralized dashboard where users can create projects, manage tasks, track progress, and add comments.
-
-The application helps keep project activities organized in one place, making it easier to monitor task progress and manage ongoing work through a simple interface.
-
-# 📋 Project Management System
+#  📋TaskFlow – Project Management Application
 
 ## 📌 About the Project
 
