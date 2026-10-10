@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>TaskFlow • Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        body.dashboard-page {
+            margin: 0;
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at 10% 10%,
+                    rgba(221, 214, 254, 0.45),
+                    transparent 28%
+                ),
+
+                radial-gradient(
+                    circle at 90% 15%,
+                    rgba(251, 219, 231, 0.5),
+                    transparent 30%
+                ),
+
+                #faf9fc;
+
+            color: #292633;
+        }
+
+
+        .dashboard-nav {
+            height: 76px;
+
+            padding: 0 6%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            background:
+                rgba(255,255,255,0.82);
+
+            backdrop-filter: blur(14px);
+
+            border-bottom:
+                1px solid
+                rgba(70,60,80,0.08);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 20;
+
+            position: relative;
+        }
+
+
+        .brand {
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+        }
+
+
+        .brand-mark {
+            width: 45px;
+
+            height: 43px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7567d9,
+                    #a58fe8
+                );
+
+            color: white;
+
+            font-size: 19px;
+
+            font-weight: 700;
+        }
+
+
+        .brand-name {
+            font-size: 30px;
+
+            font-weight: 800;
+        }
+
+
+        .brand-name span {
+            color: #7567d9;
+        }
+
+
+        .user-area {
+            display: flex;
+
+            align-items: center;
+
+            gap: 16px;
+        }
+
+
+        /* =================================================
+           WELCOME TEXT CENTERED & ENLARGED
+           ================================================= */
+        #welcomeUser {
+            position: absolute;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            font-size: 26px;
+
+            font-weight: 700;
+
+            color: #292633;
+
+            white-space: nowrap;
+        }
+
+
+        #logoutButton {
+    border: 1px solid #1f2125;
+    background: #f3eeee;
+    color: #514a5c;
+    padding: 9px 18px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+#logoutButton:hover {
+    background: #e9dfdf;
+    color: #e05252;
+    border-color: #090707;
+    transform: translateY(-1px);
+}
+
+        .dashboard-shell {
+            width: min(1180px, 88%);
+
+            margin: 0 auto;
+
+            padding: 48px 0 70px;
+        }
+
+
+        .dashboard-hero {
+            position: relative;
+
+            padding: 34px 38px;
+
+            margin-bottom: 32px;
+
+            border-radius: 24px;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    #f0edff,
+                    #fff5f8
+                );
+
+            border:
+                1px solid
+                rgba(117,103,217,0.1);
+        }
+
+
+        .eyebrow {
+            margin: 0 0 7px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.6px;
+
+            color: #8175bd;
+        }
+
+
+        .dashboard-hero h1 {
+            margin: 0;
+
+            font-size:
+                clamp(28px, 4vw, 42px);
+
+            letter-spacing: -1.2px;
+        }
+
+
+        .dashboard-hero p:last-child {
+            max-width: 590px;
+
+            margin-top: 12px;
+
+            color: #716b79;
+
+            line-height: 1.65;
+        }
+
+
+        .dashboard-grid {
+            display: grid;
+
+            grid-template-columns:
+                330px 1fr;
+
+            gap: 24px;
+
+            align-items: start;
+        }
+
+
+        .dashboard-card {
+            background:
+                rgba(255,255,255,0.92);
+
+            border:
+                1px solid
+                rgba(60,50,80,0.08);
+
+            border-radius: 20px;
+
+            padding: 24px;
+
+            box-shadow:
+                0 12px 35px
+                rgba(60,50,80,0.055);
+        }
+
+
+        .dashboard-card h2 {
+            margin: 0;
+
+            font-size: 19px;
+        }
+
+
+        .section-note {
+            margin:
+                7px 0 20px;
+
+            font-size: 13px;
+
+            color: #8a8491;
+        }
+
+
+        #projectForm {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 12px;
+        }
+
+
+        #projectForm input,
+        #projectForm textarea,
+        #taskForm input,
+        #taskForm textarea {
+
+            width: 100%;
+
+            box-sizing: border-box;
+
+            border:
+                1px solid #e8e3eb;
+
+            background: #fcfbfd;
+
+            border-radius: 11px;
+
+            padding: 12px 13px;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            outline: none;
+        }
+
+
+        #projectForm textarea,
+        #taskForm textarea {
+            min-height: 92px;
+
+            resize: vertical;
+        }
+
+
+        #projectForm button,
+        #taskForm button {
+
+            border: none;
+
+            border-radius: 11px;
+
+            padding: 12px 16px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7567d9,
+                    #9381e2
+                );
+
+            color: white;
+
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+
+        .projects-heading {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 16px;
+        }
+
+
+        #projectsContainer {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fill,
+                    minmax(220px,1fr)
+                );
+
+            gap: 16px;
+        }
+
+
+        .project-card {
+            background: white;
+
+            border:
+                1px solid
+                rgba(60,50,80,0.08);
+
+            border-radius: 17px;
+
+            padding: 19px;
+
+            box-shadow:
+                0 9px 25px
+                rgba(60,50,80,0.045);
+        }
+
+
+        .project-card h3 {
+            margin:
+                0 0 8px;
+
+            font-size: 17px;
+        }
+
+
+        .project-card p {
+            color: #7d7684;
+
+            font-size: 13px;
+
+            line-height: 1.55;
+        }
+
+
+        .project-card small {
+            display: block;
+
+            color: #9aa1af;
+
+            font-size: 11px;
+
+            margin-top: 14px;
+        }
+
+
+        .project-actions {
+            display: flex;
+
+            gap: 8px;
+
+            margin-top: 20px;
+        }
+
+
+        .project-actions button {
+            padding: 9px 12px;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+
+        .open-project {
+            background: #eeeaff;
+
+            color: #6657c6;
+
+            flex: 1;
+        }
+
+
+        .danger {
+            background: #fff0f0 !important;
+
+            color: #c34f62 !important;
+        }
+
+
+        .empty-state {
+            grid-column: 1 / -1;
+
+            padding: 40px 20px;
+
+            text-align: center;
+
+            border:
+                1px dashed #d8dce5;
+
+            border-radius: 15px;
+        }
+
+
+        .empty-state h3 {
+            margin-bottom: 6px;
+        }
+
+
+        .empty-state p {
+            color: #7b8495;
+
+            font-size: 13px;
+        }
+
+
+        #taskSection {
+            margin-top: 25px;
+        }
+
+
+        .project-header {
+            display: flex;
+
+            align-items: flex-start;
+
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+
+        #selectedProjectName {
+            margin: 0;
+
+            font-size: 23px;
+        }
+
+
+        #selectedProjectDescription {
+            color: #817b87;
+        }
+
+
+        /* =================================================
+           CLOSE PROJECT BUTTON (BOTTOM CENTERED)
+           ================================================= */
+        #closeProjectButton {
+            display: block;
+
+            margin: 30px auto 0;
+
+            padding: 11px 22px;
+
+            border: 1px solid #e2dfe7;
+
+            background: #f4f2f6;
+
+            color: #514a5c;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            font-weight: 600;
+
+            font-size: 14px;
+
+            white-space: nowrap;
+
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+
+        #closeProjectButton:hover {
+            background: #e9e6ed;
+
+            transform: translateY(-1px);
+        }
+
+
+        #taskForm {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 12px;
+
+            margin-top: 18px;
+        }
+
+
+        #taskForm textarea {
+            grid-column: 1 / -1;
+        }
+
+
+        #taskForm button {
+            width: fit-content;
+        }
+
+
+        .board {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3,1fr);
+
+            gap: 15px;
+
+            margin-top: 30px;
+        }
+
+
+        .column {
+            min-height: 190px;
+
+            background: #faf9fc;
+
+            border:
+                1px solid #eeeaf2;
+
+            border-radius: 16px;
+
+            padding: 15px;
+        }
+
+
+        .column h3 {
+            margin:
+                0 0 13px;
+
+            font-size: 13px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.8px;
+
+            color: #716b79;
+        }
+
+
+        .task-card {
+            background: white;
+
+            border:
+                1px solid #ece8f0;
+
+            border-radius: 13px;
+
+            padding: 13px;
+
+            margin-bottom: 10px;
+
+            box-shadow:
+                0 5px 15px
+                rgba(50,40,70,0.04);
+        }
+
+
+        .task-card h4 {
+            margin:
+                0 0 6px;
+
+            font-size: 14px;
+        }
+
+
+        .task-card p {
+            font-size: 12px;
+
+            color: #817b87;
+
+            line-height: 1.5;
+        }
+
+
+        .task-card small {
+            display: block;
+
+            font-size: 10px;
+
+            color: #9299a8;
+
+            margin-bottom: 10px;
+        }
+
+
+        .status-select {
+            width: 100%;
+
+            border:
+                1px solid #e6e1ea;
+
+            border-radius: 8px;
+
+            padding: 7px;
+
+            background: #faf9fc;
+
+            font-size: 12px;
+
+            color: #625c69;
+        }
+
+
+        .task-buttons {
+            display: flex;
+
+            gap: 7px;
+
+            margin-top: 10px;
+        }
+
+
+        .comment-button {
+            width: 100%;
+
+            padding: 9px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #eef2ff;
+
+            color: #635bff;
+
+            cursor: pointer;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+
+        .comment-button:hover {
+            background: #e2e7ff;
+        }
+
+
+        .empty-task {
+            color: #9aa1af;
+
+            font-size: 12px;
+
+            text-align: center;
+
+            padding: 20px 5px;
+        }
+
+
+        #projectMessage,
+        #taskMessage {
+            font-size: 13px;
+
+            min-height: 18px;
+
+            margin:
+                9px 0 0;
+        }
+
+
+        .success-message {
+            color: #4c8a6a !important;
+        }
+
+
+        .error-message {
+            color: #bd5d70 !important;
+        }
+
+
+        /* =================================================
+           COMMENTS MODAL
+           ================================================= */
+
+        .modal {
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 500;
+
+            background:
+                rgba(17,24,39,0.55);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+        }
+
+
+        .modal.hidden {
+            display: none !important;
+        }
+
+
+        .modal-content {
+            width: 540px;
+
+            max-width: 100%;
+
+            max-height: 85vh;
+
+            overflow-y: auto;
+
+            background: white;
+
+            border-radius: 16px;
+
+            padding: 28px;
+
+            position: relative;
+
+            box-shadow:
+                0 25px 70px
+                rgba(0,0,0,0.2);
+        }
+
+
+        .modal-content h2 {
+            color: #172033;
+
+            margin:
+                0 0 5px;
+        }
+
+
+        #commentsTaskName {
+            color: #7b8495;
+
+            font-size: 13px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .close-modal {
+            position: absolute;
+
+            top: 15px;
+
+            right: 18px;
+
+            width: 32px;
+
+            height: 32px;
+
+            border-radius: 50%;
+
+            background: #f1f2f5;
+
+            color: #273142;
+
+            font-size: 20px;
+
+            cursor: pointer;
+        }
+
+
+        .close-modal:hover {
+            background: #e5e6eb;
+        }
+
+
+        #commentsContainer {
+            max-height: 330px;
+
+            overflow-y: auto;
+
+            margin-bottom: 18px;
+        }
+
+
+        .comment {
+            padding: 14px;
+
+            margin-bottom: 9px;
+
+            border-radius: 9px;
+
+            background: #f7f8fa;
+        }
+
+
+        .comment strong {
+            font-size: 12px;
+
+            color: #172033;
+        }
+
+
+        .comment p {
+            font-size: 12px;
+
+            color: #7b8495;
+
+            margin:
+                5px 0;
+        }
+
+
+        .comment small {
+            font-size: 10px;
+
+            color: #9aa1af;
+        }
+
+
+        #commentForm {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+
+        #commentText {
+            width: 100%;
+
+            min-height: 80px;
+
+            resize: vertical;
+
+            padding: 12px;
+
+            border:
+                1px solid #e7eaf0;
+
+            border-radius: 9px;
+
+            outline: none;
+
+            box-sizing: border-box;
+        }
+
+
+        .comment-form-actions {
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 8px;
+        }
+
+
+        .comment-form-actions button {
+            padding: 10px 16px;
+
+            border-radius: 8px;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+
+        .comment-cancel-button {
+            background: #f1f2f5;
+
+            color: #273142;
+        }
+
+
+        .comment-submit-button {
+            background: #635bff;
+
+            color: white;
+        }
+
+
+        @media (max-width: 850px) {
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .board {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .dashboard-nav {
+                padding: 0 5%;
+            }
+
+            #welcomeUser {
+                display: none;
+            }
+
+            .dashboard-shell {
+                width: 90%;
+
+                padding-top: 30px;
+            }
+
+            .dashboard-hero {
+                padding: 27px;
+            }
+
+            #taskForm {
+                grid-template-columns: 1fr;
+            }
+
+            #taskForm textarea {
+                grid-column: auto;
+            }
+
+            .project-header {
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body class="dashboard-page">
+
+
+<nav class="dashboard-nav">
+
+    <div class="brand">
+
+        <div class="brand-mark">
+            ✦
+        </div>
+
+        <div class="brand-name">
+            Task<span>Flow</span>
+        </div>
+
+    </div>
+
+
+    <span id="welcomeUser">
+        Loading user...
+    </span>
+
+
+    <div class="user-area">
+
+        <button
+            id="logoutButton"
+            type="button"
+        >
+            Logout
+        </button>
+
+    </div>
+
+</nav>
+
+
+<main class="dashboard-shell">
+
+
+<section class="dashboard-hero">
+
+    <p class="eyebrow">
+        Your workspace
+    </p>
+
+    <h1>
+        Make ideas happen. ✦
+    </h1>
+
+    <p>
+        Keep your projects organised, your tasks moving,
+        and your next big idea a little closer to finished.
+    </p>
+
+</section>
+
+
+<div class="dashboard-grid">
+
+
+<section class="dashboard-card">
+
+    <h2>
+        New project
+    </h2>
+
+    <p class="section-note">
+        Start something worth finishing.
+    </p>
+
+
+    <form id="projectForm">
+
+        <input
+            type="text"
+            id="projectName"
+            placeholder="Project name"
+            required
+        >
+
+
+        <textarea
+            id="projectDescription"
+            placeholder="A little description..."
+        ></textarea>
+
+
+        <button type="submit">
+            + Create project
+        </button>
+
+    </form>
+
+
+    <p id="projectMessage"></p>
+
+</section>
+
+
+<section class="dashboard-card">
+
+    <div class="projects-heading">
+
+        <h2>
+            Your projects
+        </h2>
+
+        <span>
+            ✧
+        </span>
+
+    </div>
+
+
+    <p class="section-note">
+        Everything you're currently working on.
+    </p>
+
+
+    <div id="projectsContainer">
+
+        <p>
+            Loading projects...
+        </p>
+
+    </div>
+
+</section>
+
+</div>
+
+
+<section
+    id="taskSection"
+    class="dashboard-card hidden"
+>
+
+
+<div class="project-header">
+
+    <div>
+
+        <p class="eyebrow">
+            Project workspace
+        </p>
+
+        <h2 id="selectedProjectName">
+            Project
+        </h2>
+
+        <p id="selectedProjectDescription"></p>
+
+    </div>
+
+</div>
+
+
+<hr>
+
+
+<h3>
+    Add a task
+</h3>
+
+
+<form id="taskForm">
+
+    <input
+        type="text"
+        id="taskTitle"
+        placeholder="What needs doing?"
+        required
+    >
+
+
+    <input
+        type="email"
+        id="assignedEmail"
+        placeholder="Assign to user email (optional)"
+    >
+
+
+    <textarea
+        id="taskDescription"
+        placeholder="Task details..."
+    ></textarea>
+
+
+    <button type="submit">
+        + Add task
+    </button>
+
+</form>
+
+
+<p id="taskMessage"></p>
+
+
+<div class="board">
+
+
+<div class="column">
+
+    <h3>
+        ○ To Do
+    </h3>
+
+    <div id="todoTasks"></div>
+
+</div>
+
+
+<div class="column">
+
+    <h3>
+        ◐ In Progress
+    </h3>
+
+    <div id="progressTasks"></div>
+
+</div>
+
+
+<div class="column">
+
+    <h3>
+        ✓ Done
+    </h3>
+
+    <div id="doneTasks"></div>
+
+</div>
+
+
+</div>
+
+
+<!-- MOVED TO BOTTOM CENTER OF TASK SECTION -->
+<button
+    type="button"
+    id="closeProjectButton"
+>
+    Close Project
+</button>
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     COMMENTS MODAL
+     ===================================================== -->
+
+<div
+    id="commentsModal"
+    class="modal hidden"
+>
+
+    <div class="modal-content">
+
+
+        <button
+            type="button"
+            id="closeCommentsButton"
+            class="close-modal"
+        >
+            ×
+        </button>
+
+
+        <h2>
+            Comments
+        </h2>
+
+
+        <p id="commentsTaskName"></p>
+
+
+        <div id="commentsContainer">
+
+            <p>
+                No comments yet.
+            </p>
+
+        </div>
+
+
+        <form id="commentForm">
+
+
+            <textarea
+                id="commentText"
+                placeholder="Write a comment..."
+                required
+            ></textarea>
+
+
+            <div class="comment-form-actions">
+
+
+                <button
+                    type="button"
+                    id="cancelCommentButton"
+                    class="comment-cancel-button"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="comment-submit-button"
+                >
+                    Add Comment
+                </button>
+
+
+            </div>
+
+
+            <p id="commentMessage"></p>
+
+
+        </form>
+
+
+    </div>
+
+</div>
+
+
+<script src="app.js"></script>
+
+</body>
+
+</html>
