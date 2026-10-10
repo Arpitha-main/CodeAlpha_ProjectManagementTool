@@ -26,4 +26,4 @@ The application helps keep project activities organized in one place, making it 
 
 ## GitHub Repository
 
-🔗 **Repository:** 
+🔗 **Repository:** https://github.com/Arpitha-main/CodeAlpha_ProjectManagementTool.git
