@@ -6,23 +6,43 @@ TaskFlow is a web-based project management application designed to make organizi
 
 The application helps keep project activities organized in one place, making it easier to monitor task progress and manage ongoing work through a simple interface.
 
-## Features
+# 📋 Project Management System
 
-* **User Authentication:** Allows users to register, log in, and log out of their accounts.
-* **Project Management:** Create and manage projects from a centralized dashboard.
-* **Task Management:** Create tasks and update their statuses to keep track of progress.
-* **Comments:** Add and view comments to support communication and discussions related to project activities.
-* **Project Closure:** Close projects that are completed or no longer active.
-* **Database Integration:** Stores user, project, task, and comment information using SQLite.
+## 📌 About the Project
 
-## Technologies Used
+The Project Management System is a web-based application designed to help users organize projects, manage tasks, track progress, and keep project-related information in one place.
 
-* **HTML5** – Structures the application's web pages.
-* **CSS3** – Provides styling and layout for the user interface.
-* **JavaScript** – Handles user interactions and frontend functionality.
-* **Node.js** – Runs the server-side application.
-* **Express.js** – Manages backend routes and HTTP requests.
-* **SQLite** – Stores and manages application data.
+The application provides a simple interface for creating and managing projects and tasks, making it easier to stay organized and monitor ongoing work.
+
+This project is developed as part of a software development project to practice web development, database management, and application functionality.
+
+---
+
+## ✨ Features
+
+- 🔐 User Registration and Login
+- 👤 User Authentication
+- 📁 Create and Manage Projects
+- 📝 Create and Manage Tasks
+- ✏️ Update Project and Task Details
+- 🗑️ Delete Projects and Tasks
+- 📊 Track Project Progress
+- 📌 Manage Task Status
+- 📅 Organize Tasks and Deadlines
+- 📱 Responsive User Interface
+- 🗄️ Database Integration
+
+---
+
+## 🛠️ Technologies Used
+
+- **Frontend:** HTML, CSS, JavaScript
+- **Backend:** Python and Django
+- **Database:** SQLite
+- **Version Control:** Git and GitHub
+
+---
+.
 
 ## GitHub Repository
 
