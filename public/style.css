@@ -281,11 +281,13 @@ a {
     transform: translateX(-50%);
     background: linear-gradient(135deg, #635bff, #a58fe8);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 26px;
     font-weight: 900;
     letter-spacing: -0.3px;
 }
+
 .user-area button {
     padding: 9px 15px;
     border-radius: 8px;
